@@ -30,44 +30,53 @@ class _HomePageState extends State<HomePage> {
   String result = "";
   String text = "";
 
-  void buttonClicked(String btnText) {
-    if (btnText == "C") {
-      
-      opp = "";
-      result = "";
-      text = "";
-      first = 0;
-      second = 0;
+void buttonClicked(String btnText) {
+  if (btnText == "C") {
+    opp = "";
+    result = "";
+    text = "";
+    first = 0;
+    second = 0;
+  } 
+
+  else if (btnText == "+" || btnText == "-" || btnText == "x" || btnText == "/") {
+    first = int.parse(text);
+    opp = btnText;
+    result = "";
+  } 
+
+  else if (btnText == "=") {
+    second = int.parse(text);
+    if (opp == "+") {
+      result = (first + second).toString();
     } 
-    else if (btnText == "+" || btnText == "-" || btnText == "x" || btnText == "/") {
-      
-      first = int.parse(text);
-      opp = btnText;
-      result = "";
+    else if (opp == "-") {
+      result = (first - second).toString();
     } 
-    else if (btnText == "=") {
-      
-      second = int.parse(text);
-      if (opp == "+") {
-        result = (first + second).toString();
-      } 
-      else if (opp == "-") {
-        result = (first - second).toString();
-      } 
-      else if (opp == "x") {
-        result = (first * second).toString();
-      } 
-      else if (opp == "/") {
-        result = (first ~/ second).toString(); 
-      }
-    } else {
-      
-      result = int.parse(text + btnText).toString();
+    else if (opp == "x") {
+      result = (first * second).toString();
+    } 
+    else if (opp == "/") {
+      result = (first ~/ second).toString(); 
     }
-    setState(() {
-      text = result;
-    });
   }
+
+  else if (btnText == "%") {
+    result = (int.parse(text) / 100).toString();
+  } 
+
+  else if (btnText == "+/-") {
+    result = (int.parse(text) * -1).toString(); 
+  } 
+
+  else {
+    result = int.parse(text + btnText).toString();
+  }
+  
+  setState(() {
+    text = result;
+  });
+}
 
   Widget customOutlineButton(String value) {
     return Expanded(
