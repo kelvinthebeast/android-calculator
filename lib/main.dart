@@ -23,34 +23,56 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
   int first = 0;
   int second = 0;
-  String opp ="";
+  String opp = "";
   String result = "";
-  String text= "";
+  String text = "";
+
   void buttonClicked(String btnText) {
     if (btnText == "C") {
-      opp ="";
-      result="";
+      
+      opp = "";
+      result = "";
       text = "";
       first = 0;
       second = 0;
+    } 
+    else if (btnText == "+" || btnText == "-" || btnText == "x" || btnText == "/") {
+      
+      first = int.parse(text);
+      opp = btnText;
+      result = "";
+    } 
+    else if (btnText == "=") {
+      
+      second = int.parse(text);
+      if (opp == "+") {
+        result = (first + second).toString();
+      } 
+      else if (opp == "-") {
+        result = (first - second).toString();
+      } 
+      else if (opp == "x") {
+        result = (first * second).toString();
+      } 
+      else if (opp == "/") {
+        result = (first ~/ second).toString(); 
+      }
     } else {
+      
       result = int.parse(text + btnText).toString();
-
     }
     setState(() {
       text = result;
     });
-
   }
+
   Widget customOutlineButton(String value) {
     return Expanded(
       child: OutlinedButton(
         onPressed: () => buttonClicked(value),
-
         style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(15)),
         child: Text(
           value,
@@ -60,8 +82,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-// them project
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +90,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             child: Container(
-              color: Colors.yellow,
+              color: Colors.black,
               alignment: Alignment.bottomRight,
               padding: const EdgeInsets.all(10),
               child: Text(
@@ -78,47 +98,51 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.w700,
-                  color: Colors.red,
+                  color: Colors.white,
                 ),
               ),
             ),
           ),
           Row(
             children: [
-              customOutlineButton("9"),
-              customOutlineButton("8"),
+              customOutlineButton("C"),
+              customOutlineButton("()"),
+              customOutlineButton("%"),
+              customOutlineButton("/")
+            ],
+          ),
+          Row(
+            children: [
               customOutlineButton("7"),
+              customOutlineButton("8"),
+              customOutlineButton("9"),
+              customOutlineButton("x")
+            ],
+          ),
+          Row(
+            children: [
+              customOutlineButton("4"),
+              customOutlineButton("5"),
+              customOutlineButton("6"),
+              customOutlineButton("-")
+            ],
+          ),
+          Row(
+            children: [
+              customOutlineButton("1"),
+              customOutlineButton("2"),
+              customOutlineButton("3"),
               customOutlineButton("+")
             ],
           ),
           Row(
             children: [
-              customOutlineButton("6"),
-              customOutlineButton("5"),
-              customOutlineButton("4"),
-              customOutlineButton("-")
-
-            ],
-          ),
-          Row(
-            children: [
-              customOutlineButton("3"),
-              customOutlineButton("2"),
-              customOutlineButton("1"),
-              customOutlineButton("x"),
-
-            ],
-          ),
-          Row(
-            children: [
-              customOutlineButton("C"),
+              customOutlineButton("+/-"),
               customOutlineButton("0"),
+              customOutlineButton(","),
               customOutlineButton("="),
-              customOutlineButton("/"),
             ],
           )
-
-
         ],
       ),
     );
